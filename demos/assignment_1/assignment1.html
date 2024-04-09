@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My First App</title>
+<style>
+    /* Add your CSS styles here */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: lightblue;
+    }
+    .container {
+        width: 75%;
+        margin: 10px auto;
+        /* border: 1px solid black; */
+        border-radius: 4px;
+        padding: 20px;
+        box-sizing: border-box;
+        background-color: white;
+        box-shadow: 3px 3px 5px grey;
+    }
+    .row {
+        margin-bottom: 10px;
+    }
+    .row::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    .label {
+        float: left;
+        width: 120px;
+    }
+    .input {
+        float: left;
+        width: calc(100% - 120px);
+    }
+    .buttons {
+        clear: both;
+        text-align: center;
+    }
+    .buttons button {
+        margin-right: 10px;
+        padding: 5px 20px; /* Increase padding to make buttons larger */
+        font-size: 14px; /* Increase font size */
+    }
+    #lblResult {
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <label class="label" for="txtNumber1">Enter Number 1:</label>
+        <input class="input" type="text" id="txtNumber1">
+    </div>
+    <div class="row">
+        <label class="label" for="txtNumber2">Enter Number 2:</label>
+        <input class="input" type="text" id="txtNumber2">
+    </div>
+    <div class="row buttons">
+        <button onclick="add()">Add</button>
+        <button onclick="subtract()">Subtract</button>
+        <button onclick="multiply()">Multiply</button>
+        <button onclick="divide()">Divide</button>
+    </div>
+    <div class="row">
+        <p id="lblResult"></p>
+    </div>
+</div>
+
+<script>
+    // Add your JavaScript logic here
+    function add() {
+        calculateResult((a, b) => a + b, "Addition");
+    }
+
+    function subtract() {
+        calculateResult((a, b) => a - b, "Subtraction");
+    }
+
+    function multiply() {
+        calculateResult((a, b) => a * b, "Multiplication");
+    }
+
+    function divide() {
+        calculateResult((a, b) => {
+            if (b !== 0)
+                return a / b;
+            else
+                throw new Error("Cannot divide by zero.");
+        }, "Division");
+    }
+
+    function calculateResult(operation, operationName) {
+        try {
+            var num1 = parseFloat(document.getElementById("txtNumber1").value);
+            var num2 = parseFloat(document.getElementById("txtNumber2").value);
+            var result = operation(num1, num2);
+            alert(operationName + " Result: " + result);
+        } catch (error) {
+            if (error instanceof TypeError || error instanceof SyntaxError) {
+                alert("Please enter valid numbers.");
+            } else if (error instanceof Error) {
+                alert(error.message);
+            }
+        }
+    }
+</script>
+</body>
+</html>
