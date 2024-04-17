@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Inventory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            border: 2px solid #000;
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .product-container {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 3px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .product-info {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="product-list"></div>
+    </div>
+
+    <script>
+        // Product class
+        class Product {
+            constructor(variableName, title, director, rating, price) {
+                this.variableName = variableName;
+                this.title = title;
+                this.director = director;
+                this.rating = rating;
+                this.price = price;
+            }
+
+            displayInfo() {
+                return `Title: ${this.title}\nDirector: ${this.director}\nRating: ${this.rating}\nPrice: $${this.price.toFixed(2)}`;
+            }
+        }
+
+        // Create product instances
+        const movie1 = new Product("movie1", "The Shawshank Redemption", "Frank Darabont", 9.3, 9.99);
+        const movie2 = new Product("movie2", "The Godfather", "Francis Ford Coppola", 9.2, 12.99);
+        const movie3 = new Product("movie3", "The Dark Knight", "Christopher Nolan", 9.0, 14.99);
+        const movie4 = new Product("movie4", "Inception", "Christopher Nolan", 8.8, 9.99);
+        const movie5 = new Product("movie5", "Forrest Gump", "Robert Zemeckis", 8.8, 7.99);
+        const movie6 = new Product("movie6", "The Matrix", "Lana and Lilly Wachowski", 8.7, 8.99);
+
+        // Array to hold all products
+        const products = [movie1, movie2, movie3, movie4, movie5, movie6];
+
+        // Display product information
+        const productList = document.getElementById('product-list');
+
+        products.forEach(product => {
+            const productContainer = document.createElement('div');
+            productContainer.classList.add('product-container');
+
+            const productTitle = document.createElement('div');
+            productTitle.classList.add('product-title');
+            productTitle.textContent = product.title;
+
+            const productInfo = document.createElement('div');
+            productInfo.classList.add('product-info');
+            productInfo.textContent = product.displayInfo();
+
+            productContainer.appendChild(productTitle);
+            productContainer.appendChild(productInfo);
+            productList.appendChild(productContainer);
+        });
+    </script>
+</body>
+</html>
