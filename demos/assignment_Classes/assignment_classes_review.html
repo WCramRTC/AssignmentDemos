@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vehicle Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      display: flex; /* Center the content horizontally */
+      justify-content: center; /* Align horizontally in the center */
+      background-color: #cccccc; /* Darker grey background */
+    }
+
+    .container { /* Style for both form and garage containers */
+      background-color: #e0e0e0; /* Lighter grey background for containers */
+      border: 2px solid black; 
+      padding: 20px;  
+      border-radius: 5px; 
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3); /* Grey opaque drop shadow */
+      margin: 10px; 
+      width: 400px; 
+    }
+
+    #form-container h2, #garage h2 { 
+      text-align: center; 
+    }
+
+    #vehicle-list li {
+      list-style: none;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="form-container">
+    <h2>Add a Vehicle</h2>
+    <label for="make">Make:</label>  <input type="text" id="make" placeholder="Make"> <br> 
+    <label for="model">Model:</label> <input type="text" id="model" placeholder="Model"> <br> 
+    <label for="year">Year:</label> <input type="number" id="year" placeholder="Year"> <br>
+    <label for="license">License:</label> <input type="text" id="license" placeholder="License"> <br> 
+    <button id="add-vehicle">Add Vehicle</button>
+  </div>
+
+  <div class="container" id="garage"> 
+    <h2>Garage</h2>
+    <ul id="vehicle-list"></ul>
+    <input type="text" id="remove-license" placeholder="License to Remove"> 
+    <button id="remove-vehicle">Remove Vehicle</button> 
+  </div>
+
+  <script>
+    class Vehicle {
+      constructor(make, model, year, license) { 
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.license = license;
+      }
+
+      getDescription() {
+        return `${this.year} ${this.make} ${this.model} (${this.license})`; 
+      }
+    }
+
+    class Garage {
+      constructor() {
+        this.vehicles = [];
+      }
+
+      addVehicle(vehicle) {
+        this.vehicles.push(vehicle);
+        this.updateDisplay();
+      }
+
+      updateDisplay() {
+        const vehicleList = document.getElementById('vehicle-list');
+        vehicleList.innerHTML = ''; 
+
+        this.vehicles.forEach((vehicle, index) => { 
+          const listItem = document.createElement('li');
+          listItem.textContent = `${index}: ${vehicle.getDescription()}`; 
+          vehicleList.appendChild(listItem);
+        });
+      }
+
+      removeVehicleByLicense(license) {
+        const index = this.vehicles.findIndex(vehicle => vehicle.license === license);
+        if (index !== -1) {
+          this.vehicles.splice(index, 1);
+          this.updateDisplay();
+        } else {
+          alert('Vehicle with that license not found.');
+        }
+      }
+    }
+
+    // Initialize the Garage
+    const garage = new Garage();
+
+    // Event listener for the form 
+    document.getElementById('add-vehicle').addEventListener('click', () => {
+      const make = document.getElementById('make').value;
+      const model = document.getElementById('model').value;
+      const year = document.getElementById('year').value;
+      const license = document.getElementById('license').value; 
+
+      const newVehicle = new Vehicle(make, model, year, license); 
+      garage.addVehicle(newVehicle);
+    });
+
+    // Event listener for "remove" button
+    document.getElementById('remove-vehicle').addEventListener('click', () => {
+      const removeLicenseInput = document.getElementById('remove-license');
+      const removeLicense = removeLicenseInput.value;
+
+      garage.removeVehicleByLicense(removeLicense);
+      removeLicenseInput.value = ''; 
+    });
+  </script>
+</body>
+</html>

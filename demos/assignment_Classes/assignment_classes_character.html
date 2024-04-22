@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple RPG Simulator</title>
+    <style>
+        body {
+            margin: 0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            font-family: sans-serif; 
+ 
+            background-color: #800000; 
+        }
+
+        #container {
+            width: 500px; 
+            padding: 20px; 
+            border: 2px solid black; 
+            background-color: #ddd; 
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3); 
+        }
+
+        #form-container {
+            margin-bottom: 20px;
+        }
+
+        #party-display {
+            border: 1px solid #ccc;
+            padding: 15px;
+        }
+    </style> 
+</head>
+<body>
+    <div id="container"> 
+        <h1>Hero Creation</h1>
+
+        <div id="form-container">
+            <label for="heroName">Name:</label>
+            <input type="text" id="heroName">
+
+            <label for="heroType">Type:</label>
+            <select id="heroType">
+                <option value="warrior">Warrior</option>
+                <option value="wizard">Wizard</option>
+                <option value="archer">Archer</option>
+            </select>
+
+            <button id="createHero">Create Hero</button>
+        </div>
+
+        <div id="party-display">
+            <h2>Your Party</h2>
+        </div>
+
+        <button id="calculateAttack">Calculate Team Attack Power</button>
+        <div id="teamStats"></div>
+    </div>
+
+    <script>
+        // Class: Character 
+        class Character {
+            constructor(name, type) {
+                this.name = name;
+                this.type = type;
+                this.health = 100;
+
+                // Base stats (modify these based on hero type)
+                this.strength = 10;
+                this.intelligence = 10;
+                this.dexterity = 10;
+            }
+
+            attack() {
+                console.log(`${this.name} attacks!`); 
+            }
+
+            calculateAttackPower() {
+                let attackPower = this.strength; 
+                return attackPower;
+            }
+        }
+
+        // Class: PlayerParty 
+        class PlayerParty {
+            constructor() {
+                this.heroes = []; 
+            }
+
+            addHero(hero) {
+                this.heroes.push(hero);
+                this.displayPartyStats();
+            }
+
+            displayPartyStats() {
+                const partyDisplay = document.getElementById('party-display');
+                partyDisplay.innerHTML = '<h2>Your Party</h2>'; 
+
+                this.heroes.forEach(hero => {
+                    const heroElement = document.createElement('div');
+                    heroElement.textContent = `${hero.name} the ${hero.type} 
+                        (Health: ${hero.health}, Strength: ${hero.strength}, 
+                        Intelligence: ${hero.intelligence}, Dexterity: ${hero.dexterity})`;
+                    partyDisplay.appendChild(heroElement);
+                });
+            }
+
+            calculateTotalAttackPower() {
+                let totalAttackPower = 0;
+                this.heroes.forEach(hero => {
+                    totalAttackPower += hero.calculateAttackPower();
+                });
+                return totalAttackPower;
+            }
+        }
+
+        // Setup 
+        const party = new PlayerParty();
+        party.displayPartyStats(); 
+
+        // Event Listeners
+        document.getElementById('createHero').addEventListener('click', () => {
+            const heroName = document.getElementById('heroName').value;
+            const heroType = document.getElementById('heroType').value;
+
+            const newHero = new Character(heroName, heroType);
+            party.addHero(newHero);
+        });
+
+        document.getElementById('calculateAttack').addEventListener('click', () => {
+            const totalAttack = party.calculateTotalAttackPower();
+            const teamStats = document.getElementById('teamStats');
+            teamStats.textContent = `Total Team Attack Power: ${totalAttack}`;
+        })
+    </script>
+</body>
+</html>
