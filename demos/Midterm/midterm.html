@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First App</title>
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+    <div class="container">
+        <section id="products">
+            <div class="category">
+                <h2>Coffee</h2>
+                <button data-product="Dark Roast Coffee" data-price="3.50">Dark</button>
+                <button data-product="Medium Roast Coffee" data-price="3.25">Medium</button>
+                <button data-product="Light Roast Coffee" data-price="3.00">Light</button>
+            </div>
+            <div class="category">
+                <h2>Tea</h2>
+                <button data-product="Green Tea" data-price="2.75">Green</button>
+                <button data-product="Black Tea" data-price="2.50">Black</button>
+                <button data-product="Chai Tea" data-price="3.00">Chai</button>
+            </div>
+            <div class="category">
+                <h2>Breakfast</h2>
+                <button data-product="Sandwich" data-price="4.99">Sandwich</button>
+                <button data-product="Pastry" data-price="2.99">Pastry</button>
+                <button data-product="Fruit" data-price="3.75">Fruit</button>
+            </div>
+        </section>
+        <section id="orderForm">
+            <label for="customerName">Customer Name:</label>
+            <input type="text" id="customerName">
+            <button id="completePurchase">Complete Purchase</button>
+            <div id="orderSummary"></div>
+        </section>
+        <section id="previousOrders">
+            <select id="previousTransactions">
+                <option>Select previous transaction</option>
+            </select>
+            <div id="selectedOrderSummary"></div>
+        </section>
+    </div>
+    <script src="script/script.js"></script>
+</body>
+</html>
