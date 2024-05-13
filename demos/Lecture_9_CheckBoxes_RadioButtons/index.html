@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example Code</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            width: 800px;
+            padding: 20px;
+            border: 2px solid black;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        .checkbox, .radio {
+            margin-right: 10px;
+        }
+        .output {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .theme-radio {
+            display: inline-block;
+            margin-right: 20px;
+        }
+        .binary-label {
+            display: inline-block;
+            width: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Part 1: Practice -->
+    <div class="section" id="part1">
+        <label>Part 1 : Practice</label>
+        <input type="checkbox" id="option1" class="checkbox"> Option 1
+        <input type="checkbox" id="option2" class="checkbox"> Option 2
+        <br>
+        <input type="radio" name="radioGroup" id="optionA" class="radio"> Option A
+        <input type="radio" name="radioGroup" id="optionB" class="radio"> Option B
+        <br>
+        <button onclick="checkStatus()">Check Status</button>
+        <div id="statusOutput" class="output">Status will be shown here.</div>
+    </div>
+
+    <!-- Part 2: Real World -->
+    <div class="section" id="part2">
+        <label>Part 2 : Real World</label>
+        <input type="text" id="orderName" placeholder="Order Name">
+        <input type="checkbox" id="isOvernight"> Overnight Delivery
+        <input type="checkbox" id="isPerishable"> Perishable
+        <br>
+        <button onclick="createOrder()">Create Order</button>
+        <div id="orderOutput" class="output">Order details will be shown here.</div>
+    </div>
+
+    <!-- Part 3: Change Theme -->
+    <div class="section" id="part3">
+        <label>Part 3 : Change Theme</label>
+        <div class="theme-radio">
+            <input type="radio" name="theme" id="theme1" onclick="changeTheme('lightblue')"> Theme 1
+        </div>
+        <div class="theme-radio">
+            <input type="radio" name="theme" id="theme2" onclick="changeTheme('lightgreen')"> Theme 2
+        </div>
+        <div class="theme-radio">
+            <input type="radio" name="theme" id="theme3" onclick="changeTheme('lightcoral')"> Theme 3
+        </div>
+        <div class="theme-radio">
+            <input type="radio" name="theme" id="theme4" onclick="changeTheme('lightgoldenrodyellow')"> Theme 4
+        </div>
+    </div>
+
+    <!-- Part 4: Binary Converter -->
+    <div class="section" id="part4">
+        <label>Part 4 : Binary Converter</label>
+        <div>
+            <span class="binary-label">128</span>
+            <span class="binary-label">64</span>
+            <span class="binary-label">32</span>
+            <span class="binary-label">16</span>
+            <span class="binary-label">8</span>
+            <span class="binary-label">4</span>
+            <span class="binary-label">2</span>
+            <span class="binary-label">1</span>
+        </div>
+        <div>
+            <input type="checkbox" id="bit7" class="checkbox">
+            <input type="checkbox" id="bit6" class="checkbox">
+            <input type="checkbox" id="bit5" class="checkbox">
+            <input type="checkbox" id="bit4" class="checkbox">
+            <input type="checkbox" id="bit3" class="checkbox">
+            <input type="checkbox" id="bit2" class="checkbox">
+            <input type="checkbox" id="bit1" class="checkbox">
+            <input type="checkbox" id="bit0" class="checkbox">
+        </div>
+        <input type="text" id="numberInput" placeholder="Enter number">
+        <button onclick="convertToBinary()">Convert To Binary</button>
+        <button onclick="convertFromBinary()">Convert From Binary</button>
+        <div id="binaryOutput" class="output">Binary output will be shown here.</div>
+        <div id="decimalOutput" class="output">Decimal output will be shown here.</div>
+    </div>
+</div>
+
+<script>
+    // Part 1: Practice - Check Status Button Click
+    function checkStatus() {
+        const statusOutput = document.getElementById('statusOutput');
+        const option1 = document.getElementById('option1').checked;
+        const option2 = document.getElementById('option2').checked;
+        const optionA = document.getElementById('optionA').checked;
+        const optionB = document.getElementById('optionB').checked;
+
+        statusOutput.innerHTML = `CheckBoxes:<br>Option 1: ${option1}<br>Option 2: ${option2}<br>RadioButtons:<br>Option A: ${optionA}<br>Option B: ${optionB}`;
+    }
+
+    // Part 2: Real World - Create Order Button Click
+    function createOrder() {
+        const orderName = document.getElementById('orderName').value;
+        const isOvernight = document.getElementById('isOvernight').checked;
+        const isPerishable = document.getElementById('isPerishable').checked;
+
+        const orderOutput = document.getElementById('orderOutput');
+        orderOutput.innerHTML = `Name: ${orderName}<br>Overnight Delivery: ${isOvernight}<br>Perishable: ${isPerishable}`;
+    }
+
+    // Part 3: Change Theme - Change Theme RadioButton Click
+    function changeTheme(color) {
+        document.body.style.backgroundColor = color;
+    }
+
+    // Part 4: Binary Converter - Convert To Binary Button Click
+    function convertToBinary() {
+        const numberInput = document.getElementById('numberInput').value;
+        const binaryOutput = document.getElementById('binaryOutput');
+
+        const number = parseInt(numberInput);
+        if (isNaN(number) || number < 1 || number > 255) {
+            binaryOutput.innerHTML = "Invalid input. Please enter a number between 1 and 255.";
+            return;
+        }
+
+        let binaryString = number.toString(2).padStart(8, '0');
+        binaryOutput.innerHTML = binaryString;
+
+        for (let i = 0; i < 8; i++) {
+            document.getElementById(`bit${7 - i}`).checked = binaryString[i] === '1';
+        }
+    }
+
+    // Part 4: Binary Converter - Convert From Binary Button Click
+    function convertFromBinary() {
+        let number = 0;
+        for (let i = 0; i < 8; i++) {
+            if (document.getElementById(`bit${7 - i}`).checked) {
+                number += 1 << i;
+            }
+        }
+
+        const decimalOutput = document.getElementById('decimalOutput');
+        decimalOutput.innerHTML = number;
+    }
+</script>
+
+</body>
+</html>
